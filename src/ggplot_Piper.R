@@ -2,10 +2,9 @@
 ### This was written quickly, and most likely contains bugs - I advise you to check it first.
 ### Jason Lessels jlessels@gmail.com
 
-### This now consists of two functions. transform_piper_data transforms the data to match 
-### the coordinates of the piper diagram. ggplot_piper does all of the background.
+### This now consists of two functions. transform_piper_data  ggplot_piper does all of the background.
 
-
+# transforms the data to match the coordinates of the piper diagram.
 transform_piper_data <- function(Mg, Ca, Cl,SO4, name=NULL){
   if(is.null(name)){
     name = rep(1:length(Mg),3)
@@ -32,44 +31,50 @@ transform_piper_data <- function(Mg, Ca, Cl,SO4, name=NULL){
 
 ggplot_piper <- function() {
   library(ggplot2)
-  grid1p1 <<- data.frame(x1 = c(20, 40, 60, 80),
+    # create the first (bottom left) triangle
+  grid1p1 <- data.frame(x1 = c(20, 40, 60, 80),
                          x2 = c(10, 20, 30, 40),
                          y1 = c(0, 0, 0, 0),
-                         y2 = c(17.3206, 34.6412, 51.9618, 69.2824)) ## FIXME: how are these numbers generated???
-  grid1p2 <<- data.frame(x1 = c(20, 40, 60, 80),
+                         y2 = c(17.3206, 34.6412, 51.9618, 69.2824))
+  grid1p2 <- data.frame(x1 = c(20, 40, 60, 80),
                          x2 = c(60, 70, 80, 90),
                          y1 = c(0, 0, 0, 0),
-                         y2 = c(69.2824, 51.9618, 34.6412, 17.3206)) ## FIXME: how are these numbers generated???
-  grid1p3 <<- data.frame(x1 = c(10, 20, 30, 40), 
+                         y2 = c(69.2824, 51.9618, 34.6412, 17.3206))
+  grid1p3 <- data.frame(x1 = c(10, 20, 30, 40), 
                          x2 = c(90, 80, 70, 60),
-                         y1 = c(17.3206, 34.6412, 51.9618, 69.2824), ## FIXME: how are these numbers generated???
-                         y2 = c(17.3206, 34.6412, 51.9618, 69.2824)) ## FIXME: how are these numbers generated???
-  grid2p1 <<- grid1p1
+                         y1 = c(17.3206, 34.6412, 51.9618, 69.2824),
+                         y2 = c(17.3206, 34.6412, 51.9618, 69.2824))
+  
+    # copy the first triangle on the right-hand side
+  grid2p1 <- grid1p1
   grid2p1$x1 <- grid2p1$x1 + 120
   grid2p1$x2 <- grid2p1$x2 + 120
-  grid2p2 <<- grid1p2
+  grid2p2 <- grid1p2
   grid2p2$x1 <- grid2p2$x1 + 120
   grid2p2$x2 <- grid2p2$x2 + 120
-  grid2p3 <<- grid1p3
+  grid2p3 <- grid1p3
   grid2p3$x1 <- grid2p3$x1 + 120
   grid2p3$x2 <- grid2p3$x2 + 120
-  grid3p1 <<- data.frame(x1 = c(100, 90, 80, 70),
-                         y1 = c(34.6412, 51.9618, 69.2824, 86.603), ## FIXME: how are these numbers generated???
+  grid3p1 <- data.frame(x1 = c(100, 90, 80, 70),
+                         y1 = c(34.6412, 51.9618, 69.2824, 86.603),
                          x2 = c(150, 140, 130, 120),
-                         y2 = c(121.2442, 138.5648, 155.8854, 173.2060)) ## FIXME: how are these numbers generated???
-  grid3p2 <<- data.frame(x1 = c(70, 80, 90, 100),
-                         y1 = c(121.2442, 138.5648, 155.8854, 173.2060), ## FIXME: how are these numbers generated???
+                         y2 = c(121.2442, 138.5648, 155.8854, 173.2060))
+  # create the Upper diamond
+  grid3p2 <- data.frame(x1 = c(70, 80, 90, 100),
+                         y1 = c(121.2442, 138.5648, 155.8854, 173.2060),
                          x2 = c(120, 130, 140, 150),
-                         y2 = c(34.6412, 51.9618, 69.2824, 86.603)) ## FIXME: how are these numbers generated???
+                         y2 = c(34.6412, 51.9618, 69.2824, 86.603))
   
+  # set the label size
   label.size <- 5
   
+  # Piper-plot
   p <- ggplot() +
-    
+
     ## left hand ternary plot
     geom_segment(aes(x =  0, y =  0,     xend = 100, yend = 0)) +
-    geom_segment(aes(x =  0, y =  0,     xend =  50, yend = 86.603)) + ## FIXME: how are these numbers generated???
-    geom_segment(aes(x = 50, y = 86.603, xend = 100, yend = 0)) + ## FIXME: how are these numbers generated???
+    geom_segment(aes(x =  0, y =  0,     xend =  50, yend = 86.603)) +
+    geom_segment(aes(x = 50, y = 86.603, xend = 100, yend = 0)) +
     
     ## right hand ternary plot
     geom_segment(aes(x = 120, y = 0, xend = 220, yend =  0)) +
@@ -109,10 +114,9 @@ ggplot_piper <- function() {
     geom_text(aes(c(155, 145, 135, 125), grid2p2$y2, label = c(20, 40, 60, 80)), size = label.size -1, angle = -60, vjust = -1, hjust = 1) + # HCO3 axis
     geom_text(aes(c(215, 205, 195, 185), grid2p3$y2, label = c(20, 40, 60, 80)), size = label.size -1, angle = 0) + # SO4 axis
     geom_text(aes(c(140, 160, 180, 200), c(-5, -5, -5, -5), label = c(20, 40, 60, 80)), size = label.size -1, angle = 60, vjust = -.5) + # Cl axis
-    #geom_text(aes(grid3p1$x1 - 5, grid3p1$y1, label = c(80, 60, 40, 20)), size=3, angle = 60, vjust = -1.5, hjust = 1) + # diamond Na axis
     geom_text(aes(grid3p1$x2 + 5, grid3p1$y2, label = c(20, 40, 60, 80)), size = label.size -1, angle =  60, vjust = -1, hjust = 0) + # diamond Ca axis
     geom_text(aes(grid3p2$x1 - 5, grid3p2$y1, label = c(20, 40, 60, 80)), size = label.size -1, angle = -60, vjust = -1, hjust = 1) + # diamond SO4 axis
-    #geom_text(aes(grid3p2$x2 + 5, grid3p2$y2, label = c(80, 60, 40, 20)), size=3, angle =  90) + # diamond HCO3 axis
+
     theme_bw() +
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
           panel.border = element_blank(), axis.ticks = element_blank(),
