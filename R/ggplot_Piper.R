@@ -4,7 +4,26 @@
 
 ### This now consists of two functions. transform_piper_data  ggplot_piper does all of the background.
 
+
+
+
+
+
+
+
 # transforms the data to match the coordinates of the piper diagram.
+#' transform_piper_data
+#'
+#' @param Mg 
+#' @param Ca 
+#' @param Cl 
+#' @param SO4 
+#' @param name 
+#'
+#' @return dataframe with coordinates 
+#' @export
+#'
+#' @examples transform_piper_data(Ca   = data$Ca, Mg   = data$Mg, Cl = data$Cl, SO4  = data$SO4, name = data$IDs)
 transform_piper_data <- function(Mg, Ca, Cl,SO4, name=NULL){
   if(is.null(name)){
     name = rep(1:length(Mg),3)
@@ -28,6 +47,18 @@ transform_piper_data <- function(Mg, Ca, Cl,SO4, name=NULL){
   data.frame(observation=name,x=c(x1, x2, npoints$x), y=c(y=y1, y2, npoints$y))
 }
 
+
+#' create piper plot
+#'
+#' @return empty piper plot
+#' @export
+#'
+#' @examples 
+#' # empty piper plot
+#' ggplot_piper()
+#' # basic pot with values
+#' ggplot_piper() + geom_point(aes(x,y), data=piper_data)
+#' # This plot behaves like a regular ggplot. You can customize it according to your preferences 
 
 ggplot_piper <- function() {
   library(ggplot2)

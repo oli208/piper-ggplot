@@ -1,10 +1,12 @@
-source("./src/ggplot_Piper.R")
+source("./R/ggplot_Piper.R")
 library("hydrogeo")
+
+library(ggpiper)
 
 
 # very simple version ##########################################################
 
-df_ions <- read.csv2("ions.csv")
+df_ions <- read.csv2("samples/ions.csv")
 data <- toPercent(df_ions)
 
 piper_data <- transform_piper_data(Ca   = data$Ca,
@@ -14,8 +16,6 @@ piper_data <- transform_piper_data(Ca   = data$Ca,
                                    name = data$IDs)
 
 ggplot_piper() + geom_point(aes(x,y, colour=factor(observation)), data=piper_data)
-
-
 
 
 ################################################################################
