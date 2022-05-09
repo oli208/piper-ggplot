@@ -114,7 +114,7 @@ The piper function now just plots the background
 ggplot_piper()
 ```
 
-![](images/basePlot-1.png)<!-- -->
+![](doc/images/basePlot-1.png)<!-- -->
 
 Now points can be added like…
 
@@ -122,7 +122,7 @@ Now points can be added like…
 ggplot_piper() + geom_point(aes(x,y), data=piper_data)
 ```
 
-![](images/withPoints-1.png)<!-- -->
+![](doc/images/withPoints-1.png)<!-- -->
 
 … colouring the points can be done using the observation value
 
@@ -130,7 +130,7 @@ ggplot_piper() + geom_point(aes(x,y), data=piper_data)
 ggplot_piper() + geom_point(aes(x,y, colour=factor(observation)), data=piper_data)
 ```
 
-![](images/withColouredPoints-1.png)<!-- -->
+![](doc/images/withColouredPoints-1.png)<!-- -->
 
 The size can be changed like..
 
@@ -138,4 +138,4 @@ The size can be changed like..
 ggplot_piper() + geom_point(aes(x,y, colour=factor(observation)), size=4, data=piper_data)
 ```
 
-![](images/withColouredResizedPoints-1.png)<!-- -->
+![](doc/images/withColouredResizedPoints-1.png)<!-- -->
