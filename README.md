@@ -31,9 +31,11 @@ library("ggpiper")
 
 Currently only manual installation via a .zip file is possible Under
 Releases you can download the package Then start RStudio in the tab
-“Packages” you will find a button “install over zip file”. Click this
-button and select the downloaded file and confirm with ok. Now the
-package will be installed.
+“Packages” you will find a button ‘Install’. Click this button and a new
+window will open. Select ‘Install form:’ Package Archive File (.zip,
+.tar.gz) choose the downloaded file and then confirm with ‘Install’. Now
+the package will be installed.  
+![Install Package](doc/installPackage.gif)
 
 ## Example
 
