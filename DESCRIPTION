@@ -3,8 +3,10 @@ Title: Create piper plot
 Version: 0.0.1
 Authors@R: 
     person("Oliver", "Schappacher", , "git-oliver@web.de", role = c("aut", "cre"))
-Description: Generate piper diagram for graphical representation of the chemistry of water samples
+Description: Generate piper diagram for graphical representation of the chemistry of water samples.
 License: GLP-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Imports:
+    ggplot2 (>= 3.3.6)
